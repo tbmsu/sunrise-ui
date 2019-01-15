@@ -40,7 +40,7 @@
         created: function () {
             this.checkDeviceOnlineStatus();
             this.timerOnlineCheck = window.setInterval(this.checkDeviceOnlineStatus, 5000);
-            this.timerDeviceStatus = window.setInterval(this.updateDeviceStatus, 10000);
+            //this.timerDeviceStatus = window.setInterval(this.updateDeviceStatus, 10000);
         },
 
         mounted: function () {
@@ -114,7 +114,6 @@
                 deviceRepository.status(this.device.id)
                     .fail(function (res) { self.ajaxRequestError = true })
                     .done(function (res) {
-
                         self.deviceLastStatus = new Date().toLocaleTimeString();
 
                         self.ajaxRequestError = false;
@@ -122,15 +121,13 @@
                         self.globalDstStatus = res.data.dst == 1;
 
                         if (res.data.wds) {
-                            var weekdayTokens = res.data.wds.split(',');
-                            self.weekdayAlarmStatus = weekdayTokens[0] === '11111';
-                            self.weekdayAlarmTime = weekdayTokens[1].split('+')[0];
+                            self.weekdayAlarmStatus = res.data.wds.d === '11111';
+                            self.weekdayAlarmTime = res.data.wds.t;
                         }
 
                         if (res.data.wes) {
-                            var weekendTokens = res.data.wes.split(',');
-                            self.weekendAlarmStatus = weekendTokens[0] === '11';
-                            self.weekendAlarmTime = weekendTokens[1].split('+')[0];
+                            self.weekendAlarmStatus = res.data.wes.d === '11';
+                            self.weekendAlarmTime = res.data.wes.t;
                         }
                     });
             },
