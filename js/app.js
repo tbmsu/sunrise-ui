@@ -16,7 +16,7 @@
         data: {
             device: storage.fetchDevice(),
             deviceIsOnline: false,
-            deviceLastStatus: '',
+            deviceLastStatus: new Date().toLocaleTimeString(),
             ajaxRequestError: false,
 
             timerDeviceStatus: '',
@@ -25,6 +25,8 @@
 
             globalAlarmStatus: false,
             globalDstStatus: false,
+            sunriseDuration: '',
+            lightOffOffset: '',
 
             weekdayAlarmTime: '',
             weekdayAlarmStatus: false,
@@ -119,6 +121,8 @@
                         self.ajaxRequestError = false;
                         self.globalAlarmStatus = res.data.gs == 1;
                         self.globalDstStatus = res.data.dst == 1;
+                        self.sunriseDuration = res.data.srd / 1000 / 60;
+                        self.lightOffOffset = res.data.off;
 
                         if (res.data.wds) {
                             self.weekdayAlarmStatus = res.data.wds.d === '11111';

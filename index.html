@@ -89,6 +89,19 @@
             <input v-model="globalDstStatus" type="checkbox" class="custom-control-input" id="switch_dstOnOff">
             <label class="custom-control-label" for="switch_dstOnOff">DST On</label>
           </div>
+          <hr/>
+          <div class="row">
+            <label for="srDuration" class="col-sm-3 col-form-label col-form-label-sm">Sunrise Duration (minutes)</label>
+            <div class="col-sm-9">
+              <input v-model="sunriseDuration" type="text" readonly class="form-control-plaintext form-control-sm" id="srDuration" value="">
+            </div>
+          </div>
+          <div class="row">
+            <label for="offset" class="col-sm-3 col-form-label col-form-label-sm">Light-Off Offset (minues)</label>
+            <div class="col-sm-9">
+              <input v-model="lightOffOffset" type="text" readonly class="form-control-plaintext form-control-sm" id="offset" value="">
+            </div>
+          </div>
           <div v-if="false" class="mt-3">
             <label for="range_lightDuration">Light Duration</label>
             <input type="range" class="custom-range" min="30" max="90" id="range_lightDuration">
@@ -100,9 +113,8 @@
       <div class="row mr-1">
         <div class="col text-right">
           <small>Data last refreshed at {{ deviceLastStatus }}</small>
-          <!-- <div class="spinner-grow spinner-grow-sm" role="status">
-            <span class="sr-only">Refreshing...</span>
-          </div> -->
+          &nbsp;
+          <i class="fas fa-sync" v-on:click="updateDeviceStatus"></i>
         </div>
       </div>
 
@@ -118,8 +130,8 @@
         <div class="card-footer bg-transparent border-danger text-right">
           <small>Last checked at {{ timerLastChecked }}</small>
           <div class="spinner-grow spinner-grow-sm text-danger" role="status">
-              <span class="sr-only">Refreshing...</span>
-            </div>
+            <span class="sr-only">Refreshing...</span>
+          </div>
         </div>
       </div>
     </div>
